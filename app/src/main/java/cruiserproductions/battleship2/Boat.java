@@ -1,7 +1,5 @@
 package cruiserproductions.battleship2;
 
-import android.os.Parcelable;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -10,11 +8,11 @@ import java.util.ArrayList;
  */
 
 public class Boat implements Serializable{
-    int hp=0;
+    int HP =0;
     ArrayList<Move> moves=new ArrayList<>();
-    Boat(int hp)
+    Boat(int HP)
     {
-        this.hp=hp;
+        this.HP = HP;
 
 
 

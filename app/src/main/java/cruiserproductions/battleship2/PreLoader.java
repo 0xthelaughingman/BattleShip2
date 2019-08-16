@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+/*
+App Boot. "Splash" screen.
+*/
 
 public class PreLoader extends Activity {
     ImageView v1;

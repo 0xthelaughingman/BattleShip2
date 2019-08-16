@@ -15,10 +15,10 @@ import java.util.ArrayList;
  * Created by Derpp on 3/29/2017.
  */
 
-public class gridAda extends BaseAdapter {
+public class GridAdap extends BaseAdapter {
     ArrayList<ImageView> al;
     Context ct;
-    public gridAda(Context ct,ArrayList<ImageView> st)
+    public GridAdap(Context ct, ArrayList<ImageView> st)
     {
         this.ct=ct;
         al=st;

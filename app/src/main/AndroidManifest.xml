@@ -21,13 +21,13 @@
             android:name=".Loader"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".gridTest"
+            android:name=".PlayerPlacement"
             android:screenOrientation="portrait" />
         <activity
             android:name=".BattleScreen"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".GameOptions"
+            android:name=".LandingMenu"
             android:screenOrientation="portrait" />
         <activity
             android:name=".UserBefore"

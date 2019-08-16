@@ -13,7 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.Serializable;
-
+/*
+Post boot. "Loading" screen.
+*/
 public class Loader extends Activity {
     ProgressBar pb;
     TextView t1;

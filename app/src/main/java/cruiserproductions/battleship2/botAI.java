@@ -1,7 +1,5 @@
 package cruiserproductions.battleship2;
 
-import android.widget.ImageView;
-
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -9,16 +7,16 @@ import java.util.concurrent.ThreadLocalRandom;
  * Created by Derpp on 4/2/2017.
  */
 
-public class botAI {
+public class BotAI {
     static int field[][]=  new int[8][8];// copy player field
-    static ArrayList<Integer> boathps;
-    static int pmat[][]=new int[8][8];
+    static ArrayList<Integer> boatHPs;
+    static int pMatrix[][]=new int[8][8];
     static int boat_count;
-    static int boathp=0;
+    static int boatHP =0;
     static char curboat='0';
     static char currfield[][]=new char[8][8];
-    static ArrayList<Move> moveset ;
-    static ArrayList<Move> guessset=new ArrayList<>() ;
+    static ArrayList<Move> move_set;
+    static ArrayList<Move> guess_set =new ArrayList<>() ;
     static Move startpos=null;
     static Move curpath=null;
     static Move backpath=null;
@@ -26,16 +24,16 @@ public class botAI {
     //static int lockloss=0;
     static int hit=0;
     //static int lastmov;
-    botAI(ArrayList<Integer>al,int[][] f)
+    BotAI(ArrayList<Integer>al, int[][] f)
     {
-        boathps=al;
-        moveset=new ArrayList<Move>();
+        boatHPs =al;
+        move_set =new ArrayList<Move>();
         for(int i=0;i<field.length;i++)
         {
             for(int j=0;j<field.length;j++)
             {
                 Move ob=new Move(i,j);
-                moveset.add(ob);
+                move_set.add(ob);
             }
         }
         for(int i=0;i<field.length;i++)
@@ -49,45 +47,45 @@ public class botAI {
      ArrayList<Boat> genBoats()
     {
         ArrayList<Boat> aiBoatList=new ArrayList<>();
-        while(boathps.size()!=0)
+        while(boatHPs.size()!=0)
         {
-            int pick= ThreadLocalRandom.current().nextInt(0,moveset.size());
-            Move ob=moveset.get(pick);
+            int pick= ThreadLocalRandom.current().nextInt(0, move_set.size());
+            Move ob= move_set.get(pick);
             int ori=ThreadLocalRandom.current().nextInt(0,2);
 
-            int hp=(int)boathps.get(0);
+            int hp=(int) boatHPs.get(0);
             if(ori==1 && ob.i>=8-hp)continue;
             else if(ori==0 && ob.j>=8-hp)continue;
             Boat b=genboat(hp,ob,ori);
             if(b!=null) {
-                for (int i = 0; i < b.hp; i++) {
+                for (int i = 0; i < b.HP; i++) {
                     Move obb = b.moves.get(i);
 
                     int xx = obb.i;
                     int yy = obb.j;
-                    pmat[xx][yy] = b.hp;
+                    pMatrix[xx][yy] = b.HP;
 
                 }
                 aiBoatList.add(b);
-                boathps.remove(0);
+                boatHPs.remove(0);
             }
         }
         return aiBoatList;
     }
-    static Move trymove()
+    static Move tryMove()
     {   Move decided;
         if(hit==1 )
         {
             if(backpath==null)
-            {	int pick= ThreadLocalRandom.current().nextInt(0,guessset.size());
-                Move ob=(Move) guessset.get(pick);
+            {	int pick= ThreadLocalRandom.current().nextInt(0, guess_set.size());
+                Move ob=(Move) guess_set.get(pick);
                 decided=ob;
                 if(field[ob.i][ob.j]!=0)
                 {
                     currfield[ob.i][ob.j]='H';
 
-                    boathp=boathp-1;
-                    if(boathp==0)
+                    boatHP = boatHP -1;
+                    if(boatHP ==0)
                     {
                         boat_count--;
 
@@ -97,16 +95,16 @@ public class botAI {
                     }
                     else
                     {
-                        curpath=new Move(ob.i,ob.j,ob.dir);
-                        if(ob.dir.equals(">"))
+                        curpath=new Move(ob.i,ob.j,ob.direction);
+                        if(ob.direction.equals(">"))
                         {
                             backpath=new Move(ob.i,ob.j-2,"<");
                         }
-                        else if(ob.dir.equals("<"))
+                        else if(ob.direction.equals("<"))
                         {
                             backpath=new Move(ob.i,ob.j+2,">");
                         }
-                        else if(ob.dir.equals("^"))
+                        else if(ob.direction.equals("^"))
                         {
                             backpath=new Move(ob.i+2,ob.j,"v");
                         }
@@ -123,7 +121,7 @@ public class botAI {
                     currfield[ob.i][ob.j]='B';
                 }
 
-                guessset.remove(pick);
+                guess_set.remove(pick);
 
             }
             else
@@ -136,8 +134,8 @@ public class botAI {
                     {
                         currfield[curpath.i][curpath.j]='H';
 
-                        boathp=boathp-1;
-                        if(boathp==0)
+                        boatHP = boatHP -1;
+                        if(boatHP ==0)
                         {
                             boat_count--;
 
@@ -154,8 +152,8 @@ public class botAI {
                 {
                     currfield[curpath.i][curpath.j]='H';
 
-                    boathp=boathp-1;
-                    if(boathp==0)
+                    boatHP = boatHP -1;
+                    if(boatHP ==0)
                     {
                         boat_count--;
 
@@ -176,8 +174,8 @@ public class botAI {
                 {
                     currfield[curpath.i][curpath.j]='H';
 
-                    boathp=boathp-1;
-                    if(boathp==0)
+                    boatHP = boatHP -1;
+                    if(boatHP ==0)
                     {
                         boat_count--;
 
@@ -189,13 +187,13 @@ public class botAI {
                 }
             }
             }
-            moveset=new ArrayList<Move>();
+            move_set =new ArrayList<Move>();
             for(int i=0;i<field.length;i++)
             {
                 for(int j=0;j<field.length;j++)
                 {	/*if(currfield[i][j]=='\u0000' && currfield[i][j]=='\u0000')
 					{	move ob=new move(i,j);
-						moveset.add(ob);
+						move_set.add(ob);
 					}
 					*/
                     //uncomment above for dumb ai =which attacks border of known ship and comment the below
@@ -211,7 +209,7 @@ public class botAI {
                                         (currfield[i-1][j]=='\u0000'	|| currfield[i-1][j]=='B') &&
                                         (currfield[i+1][j]=='\u0000' || currfield[i+1][j]=='B'))
                                 {	Move ob=new Move(i,j);
-                                    moveset.add(ob);}
+                                    move_set.add(ob);}
                             }
                             else if(j==0||j==field.length-1)
                             {
@@ -220,7 +218,7 @@ public class botAI {
                                         (currfield[i+1][j]=='\u0000' ||  currfield[i+1][j]=='B') &&
                                         (currfield[i][j+1]=='\u0000'	||currfield[i][j+1]=='B'))
                                 {	Move ob=new Move(i,j);
-                                    moveset.add(ob);
+                                    move_set.add(ob);
                                 }
                                 }
                                 else if(j==field.length-1)
@@ -229,7 +227,7 @@ public class botAI {
                                             (currfield[i+1][j]=='\u0000' || currfield[i+1][j]=='B') &&
                                             (currfield[i][j-1]=='\u0000' || currfield[i][j-1]=='B' ))
                                     {	Move ob=new Move(i,j);
-                                        moveset.add(ob);}
+                                        move_set.add(ob);}
                                 }
                             }
                         }
@@ -240,7 +238,7 @@ public class botAI {
                                 if((currfield[i][j-1]=='\u0000' || currfield[i][j-1]=='B')&&
                                         (currfield[i][j+1]=='\u0000' || currfield[i][j+1]=='B'))
                                 {	Move ob=new Move(i,j);
-                                    moveset.add(ob);}
+                                    move_set.add(ob);}
                             }
                             else if(j==0||j==field.length-1)
                             {
@@ -249,18 +247,18 @@ public class botAI {
                                     if((currfield[i][j+1]=='\u0000' || currfield[i][j+1]=='B')&&
                                             (currfield[i+1][j]=='\u0000' ||currfield[i+1][j]=='B' ))
                                     {	Move ob=new Move(i,j);
-                                        moveset.add(ob);}
+                                        move_set.add(ob);}
                                 }
                                 else if(i==field.length-1 && j==field.length-1)
                                 {
                                     if((currfield[i][j-1]=='\u0000' || currfield[i][j-1]=='B' )&&
                                             (currfield[i-1][j]=='\u0000' || currfield[i-1][j]=='B' ))
                                     {	Move ob=new Move(i,j);
-                                        moveset.add(ob);}
+                                        move_set.add(ob);}
                                 }
                                 else
                                 {	Move ob=new Move(i,j);
-                                    moveset.add(ob);}
+                                    move_set.add(ob);}
 
                             }
                         }
@@ -273,14 +271,14 @@ public class botAI {
         }
         else
         {
-            int pick= ThreadLocalRandom.current().nextInt(0,moveset.size());
-            Move ob=(Move)moveset.get(pick);decided=ob;
+            int pick= ThreadLocalRandom.current().nextInt(0, move_set.size());
+            Move ob=(Move) move_set.get(pick);decided=ob;
             if(field[ob.i][ob.j]!=0)
             {
                 currfield[ob.i][ob.j]='H';
                 hit=1;
-                boathp=field[ob.i][ob.j]-1;
-                if(boathp==0)
+                boatHP =field[ob.i][ob.j]-1;
+                if(boatHP ==0)
                 {
                     boat_count--;
 
@@ -298,7 +296,7 @@ public class botAI {
                 currfield[ob.i][ob.j]='B';
             }
 
-            moveset.remove(pick);
+            move_set.remove(pick);
 
         }
         return decided;
@@ -317,27 +315,27 @@ public class botAI {
     }
     static void makeguesses()
     {
-        guessset=new ArrayList<Move>();
+        guess_set =new ArrayList<Move>();
         if(startpos.i+1<field.length && currfield[startpos.i+1][startpos.j]=='\u0000')
-            guessset.add(new Move(startpos.i+1,startpos.j,"v"));
+            guess_set.add(new Move(startpos.i+1,startpos.j,"v"));
         if(startpos.i-1>=0 && currfield[startpos.i-1][startpos.j]=='\u0000')
-            guessset.add(new Move(startpos.i-1,startpos.j,"^"));
+            guess_set.add(new Move(startpos.i-1,startpos.j,"^"));
         if(startpos.j+1<field.length && currfield[startpos.i][startpos.j+1]=='\u0000')
-            guessset.add(new Move(startpos.i,startpos.j+1,">"));
+            guess_set.add(new Move(startpos.i,startpos.j+1,">"));
         if(startpos.j-1>=0 && currfield[startpos.i][startpos.j-1]=='\u0000')
-            guessset.add(new Move(startpos.i,startpos.j-1,"<"));
+            guess_set.add(new Move(startpos.i,startpos.j-1,"<"));
     }
     static Move makemove(Move ob)
     {
-        if(ob.dir.equals(">"))
+        if(ob.direction.equals(">"))
         {
             return new Move(ob.i,ob.j+1,">");
         }
-        else if(ob.dir.equals("<"))
+        else if(ob.direction.equals("<"))
         {
             return new Move(ob.i,ob.j-1,"<");
         }
-        else if(ob.dir.equals("^"))
+        else if(ob.direction.equals("^"))
         {
             return new Move(ob.i-1,ob.j,"^");
         }
@@ -351,12 +349,12 @@ public class botAI {
         int t1=1,t2=1;
         if(y>0)
         {
-            if(pmat[x][y-1]!=0)t1=0;
+            if(pMatrix[x][y-1]!=0)t1=0;
 
         }
-        if(y<pmat.length-1)
+        if(y< pMatrix.length-1)
         {
-            if(pmat[x][y+1]!=0)t2=0;
+            if(pMatrix[x][y+1]!=0)t2=0;
         }
 
         if(t1==1 && t2==1)
@@ -369,12 +367,12 @@ public class botAI {
         int t1=1,t2=1;
         if(x>0)
         {
-            if(pmat[x-1][y]!=0)t1=0;
+            if(pMatrix[x-1][y]!=0)t1=0;
 
         }
-        if(x<pmat.length-1)
+        if(x< pMatrix.length-1)
         {
-            if(pmat[x+1][y]!=0)t2=0;
+            if(pMatrix[x+1][y]!=0)t2=0;
         }
 
         if(t1==1 && t2==1)
@@ -419,7 +417,7 @@ public class botAI {
         int y=move.j;
         if(ori==0)
         {
-            if(y<=pmat.length-2)
+            if(y<= pMatrix.length-2)
             {
                 boolean t1,t2;
                 t1=checkver(x,y+1);
@@ -440,7 +438,7 @@ public class botAI {
         }
         else
         {
-            if(x<=pmat.length-2)
+            if(x<= pMatrix.length-2)
             {
                 boolean t1,t2;
                 t1=checkhor(x+1,y);
@@ -464,7 +462,7 @@ public class botAI {
         int y=move.j;
         if(ori==0)
         {
-            if(y<=pmat.length-2)
+            if(y<= pMatrix.length-2)
             {
                 boolean t1,t2,t3,t4;
                 t1=checkver(x,y+1);
@@ -488,7 +486,7 @@ public class botAI {
         }
         else
         {
-            if(x<=pmat.length-2)
+            if(x<= pMatrix.length-2)
             {
                 boolean t1,t2,t3,t4;
                 t1=checkver(x+1,y);

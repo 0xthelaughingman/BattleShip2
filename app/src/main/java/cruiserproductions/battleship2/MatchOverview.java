@@ -48,9 +48,9 @@ public class MatchOverview extends Activity {
         }
 
     }
-    public void backtoOptions(View v)
+    public void backToOptions(View v)
     {
-        Intent i=new Intent(this,GameOptions.class);
+        Intent i=new Intent(this, LandingMenu.class);
         i.putExtra("uname",uname);
         startActivity(i);
 

@@ -10,7 +10,7 @@ public class Move implements Serializable
 {
     public int i;
     public int j;
-    public String dir;
+    public String direction;
     public int img;
     Move(int i, int j)
     {
@@ -23,11 +23,11 @@ public class Move implements Serializable
         this.j=j;
         this.img=img;
     }
-    Move(int i, int j, String dir)
+    Move(int i, int j, String direction)
     {
         this.i=i;
         this.j=j;
-        this.dir=dir;
+        this.direction = direction;
     }
     void setImg(int img)
     {

@@ -65,7 +65,7 @@
             android:layout_margin="9dp"
             android:background="@android:color/holo_red_light"
             android:elevation="24dp"
-            android:onClick="gobattle"
+            android:onClick="goBattle"
             android:padding="5dp"
             android:text="TO BATTLE!!!" />
     </RelativeLayout>

@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -59,13 +58,13 @@ public class UserBefore extends Activity{
         d.show();
 
     }
-    public void hoptoOptions(View v)
+    public void hopToOptions(View v)
     {
         SharedPreferences sp=getSharedPreferences("derp",MODE_PRIVATE);
         SharedPreferences.Editor spe=sp.edit();
         spe.putString("uname",uname.getText().toString());
         spe.commit();
-        Intent i=new Intent(this,GameOptions.class);
+        Intent i=new Intent(this, LandingMenu.class);
         i.putExtra("uname",uname.getText().toString());
         startActivity(i);
         overridePendingTransition(R.anim.loaderanim,0);
@@ -95,14 +94,14 @@ public class UserBefore extends Activity{
             call();
         }else{
             a1.add("Select another player");
-            AlertDialog.Builder a132=new AlertDialog.Builder(this);
+            AlertDialog.Builder cusAlert=new AlertDialog.Builder(this);
             View v2=getLayoutInflater().inflate(R.layout.dig2,null);
-            a132.setView(v2);
-            final Dialog d132=a132.create();
-            ListView l=(ListView)v2.findViewById(R.id.list);
-            l.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,a1));
-            d132.show();
-            l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            cusAlert.setView(v2);
+            final Dialog alertDialog=cusAlert.create();
+            ListView listV=(ListView)v2.findViewById(R.id.list);
+            listV.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,a1));
+            alertDialog.show();
+            listV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Toast.makeText(getApplicationContext(),(String)parent.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
@@ -115,7 +114,7 @@ public class UserBefore extends Activity{
                         go.setEnabled(true);
                         Log.d("user",user);
                     }
-                    d132.dismiss();
+                    alertDialog.dismiss();
                 }});
         }
     }

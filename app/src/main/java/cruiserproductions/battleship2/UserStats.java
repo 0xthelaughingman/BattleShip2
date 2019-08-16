@@ -50,7 +50,7 @@ public class UserStats extends Activity {
     }
     public void gotoOptions(View v)
     {
-        Intent i=new Intent(this,GameOptions.class);
+        Intent i=new Intent(this, LandingMenu.class);
         i.putExtra("uname",uname);
         startActivity(i);
 

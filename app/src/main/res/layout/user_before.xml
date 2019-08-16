@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/optionsbackground"
-    tools:context="cruiserproductions.battleship2.GameOptions">
+    tools:context="cruiserproductions.battleship2.LandingMenu">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -72,7 +72,7 @@
             android:layout_weight="1"
             android:elevation="9dp"
             android:enabled="false"
-            android:onClick="hoptoOptions"
+            android:onClick="hopToOptions"
             android:text="Log In"
             android:textAppearance="@android:style/TextAppearance" />
     </LinearLayout>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/optionsbackground"
-    tools:context="cruiserproductions.battleship2.GameOptions">
+    tools:context="cruiserproductions.battleship2.LandingMenu">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_marginBottom="25dp"
-            android:onClick="movetoplay"
+            android:onClick="moveToPlay"
             android:text="NEW GAME"
             android:textAppearance="@android:style/TextAppearance" />
 
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_marginBottom="25dp"
-            android:onClick="movetohow"
+            android:onClick="moveToHow"
             android:text="How To Play"
             android:textAppearance="@android:style/TextAppearance" />
 
@@ -60,7 +60,7 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:onClick="movetostats"
+            android:onClick="moveToStats"
             android:text="Player Stats"
             android:textAppearance="@android:style/TextAppearance" />
     </LinearLayout>

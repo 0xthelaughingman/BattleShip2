@@ -7,7 +7,7 @@
     android:background="@android:color/black"
     android:baselineAligned="false"
     android:orientation="vertical"
-    tools:context="cruiserproductions.battleship2.gridTest">
+    tools:context="cruiserproductions.battleship2.PlayerPlacement">
 
 
 

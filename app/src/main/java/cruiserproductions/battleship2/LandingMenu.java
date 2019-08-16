@@ -1,7 +1,6 @@
 package cruiserproductions.battleship2;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,7 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 
-public class GameOptions extends Activity {
+public class LandingMenu extends Activity {
     String uname;
     TextView t;
     @Override
@@ -26,9 +25,9 @@ public class GameOptions extends Activity {
 
 
     }
-    public void movetoplay(View v)
+    public void moveToPlay(View v)
     {
-        Intent i=new Intent(this,gridTest.class);
+        Intent i=new Intent(this, PlayerPlacement.class);
         i.putExtra("uname",uname);
         Intent mu=new Intent(this,MyService.class);
         stopService(mu);
@@ -37,7 +36,7 @@ public class GameOptions extends Activity {
         finish();
 
     }
-    public void movetostats(View v)
+    public void moveToStats(View v)
     {
         Intent i=new Intent(this,UserStats.class);
         i.putExtra("uname",uname);
@@ -45,7 +44,7 @@ public class GameOptions extends Activity {
         overridePendingTransition(R.anim.loaderanim,0);
         finish();
     }
-    public void movetohow(View v)
+    public void moveToHow(View v)
     {
         Intent i=new Intent(this,HowToPlay.class);
         i.putExtra("uname",uname);

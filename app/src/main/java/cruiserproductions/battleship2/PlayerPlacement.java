@@ -2,16 +2,10 @@ package cruiserproductions.battleship2;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -22,11 +16,13 @@ import android.widget.Toast;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class gridTest extends Activity {
+public class PlayerPlacement extends Activity {
     GridView gv;
-    static int boatori=0;
-    static ArrayList<Integer> boathp=new ArrayList<>();
-    static ArrayList<Boat> boatlist=new ArrayList<Boat>();
+    static int boatOrientation=0;
+
+    static ArrayList<Integer> boatHP =new ArrayList<>();
+    static ArrayList<Boat> boatList=new ArrayList<Boat>();
+
     static int[][] pmat=new int[8][8];
     RadioButton r1,r2;
     RadioGroup rg;
@@ -44,18 +40,18 @@ public class gridTest extends Activity {
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId==R.id.radioButton)boatori=0;
-                else boatori=1;
-                updatestyle(hp,boatori);
+                if(checkedId==R.id.radioButton)boatOrientation=0;
+                else boatOrientation=1;
+                updateStyle(hp,boatOrientation);
             }
         });
         i1=(ImageView)findViewById(R.id.imageView2);
-        boathp.add(3);
-        boathp.add(2);
-        boathp.add(2);
-        boathp.add(2);
-        boathp.add(1);
-        boathp.add(1);
+        boatHP.add(3);
+        boatHP.add(2);
+        boatHP.add(2);
+        boatHP.add(2);
+        boatHP.add(1);
+        boatHP.add(1);
         ArrayList<ImageView> list=new ArrayList<>();
         for(int i=0;i<8;i++)
         {
@@ -70,42 +66,42 @@ public class gridTest extends Activity {
         }
         uname=getIntent().getStringExtra("uname");
 
-         gv=(GridView)findViewById(R.id.gv);
-        gridAda ga=new gridAda(this,list);
+        gv=(GridView)findViewById(R.id.gv);
+        GridAdap ga=new GridAdap(this,list);
         gv.setAdapter(ga);
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                gridAda a=(gridAda)gv.getAdapter();
+                GridAdap a=(GridAdap)gv.getAdapter();
                 /*ImageView d=(ImageView)a.getView(position,view,parent);
                 d.setImageResource(R.mipmap.ic_launcher);*/
                 int x=position/8; int y=position%8;
-                 hp=boathp.get(0);
+                 hp= boatHP.get(0);
 
                 Move start=new Move(x,y);
-                Boat b=genboat(hp,start,boatori);
+                Boat b= generateBoat(hp,start,boatOrientation);
                 if(b!=null)
-                {   for(int i=0;i<b.hp;i++)
+                {   for(int i = 0; i<b.HP; i++)
                     {
                         Move ob=b.moves.get(i);
 
                         int xx=ob.i;
                         int yy=ob.j;
-                        pmat[xx][yy]=b.hp;
+                        pmat[xx][yy]=b.HP;
                     ImageView d = (ImageView) a.getView(xx*8+yy, null, null);
                     d.setImageResource(ob.img);
                     }
-                    boatlist.add(b);
-                    boathp.remove(0);
-                    if(boathp.size()==0)
-                    {   Toast.makeText(getApplicationContext(),""+boatlist.size(),Toast.LENGTH_SHORT).show();
-                        hoptoplay();
+                    boatList.add(b);
+                    boatHP.remove(0);
+                    if(boatHP.size()==0)
+                    {   Toast.makeText(getApplicationContext(),""+boatList.size(),Toast.LENGTH_SHORT).show();
+                        battleReadyDialog();
 
                     }
                     else
                     {
-                        updatestyle(boathp.get(0),boatori);
+                        updateStyle(boatHP.get(0),boatOrientation);
 
                     }
                 }
@@ -113,9 +109,9 @@ public class gridTest extends Activity {
             }
         });
 
-        updatestyle(boathp.get(0),boatori);
+        updateStyle(boatHP.get(0),boatOrientation);
     }
-    void updatestyle(int hp,int ori)
+    void updateStyle(int hp, int ori)
     {
         String[] names=getResources().getStringArray(R.array.boat);
         if(hp==1)
@@ -137,18 +133,18 @@ public class gridTest extends Activity {
                 i1.setImageResource(R.drawable.boss);
         }
     }
-    public void gobattle(View v)
+    public void goBattle(View v)
     {
         Intent i=new Intent(this,BattleScreen.class);
         /*Bundle b=new Bundle();
         b.putSerializable("pboat",boatlist);*/
-        i.putExtra("pboat",(Serializable)boatlist);
+        i.putExtra("pboat",(Serializable)boatList);
         i.putExtra("uname",uname);
         startActivity(i);
         overridePendingTransition(R.anim.loaderanim,0);
         finish();
     }
-    public void hoptoplay()
+    public void battleReadyDialog()
     {
         AlertDialog.Builder db=new AlertDialog.Builder(this);
         View v=this.getLayoutInflater().inflate(R.layout.dialogprep,null);
@@ -194,7 +190,7 @@ public class gridTest extends Activity {
 
     }
 
-    Boat genboat(int hp,Move move, int ori)
+    Boat generateBoat(int hp, Move move, int ori)
     {
         int x=move.i; int y=move.j;
         Boat b=new Boat(hp);
@@ -211,9 +207,9 @@ public class gridTest extends Activity {
                 b.addMove(move);
             }
             else if(hp==2)
-            { b=genboat2(move,ori);}
+            { b= generateBoat_type2(move,ori);}
             else
-            { b=genboat3(move ,ori);}
+            { b= generateBoat_type3(move ,ori);}
 
         }
         else
@@ -223,7 +219,7 @@ public class gridTest extends Activity {
 
         return b;
     }
-    Boat genboat2(Move move,int ori){
+    Boat generateBoat_type2(Move move, int ori){
         Boat b=new Boat(2);
         int x=move.i;
         int y=move.j;
@@ -267,7 +263,7 @@ public class gridTest extends Activity {
         }
         return  b;
     }
-    Boat genboat3(Move move,int ori)
+    Boat generateBoat_type3(Move move, int ori)
     {
         Boat b=new Boat(3);
         int x=move.i;
