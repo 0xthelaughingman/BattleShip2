@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:baselineAligned="false"
+    android:orientation="vertical"
+    tools:context="cruiserproductions.battleship2.gridTest">
+
+
+
+        <GridView
+            android:id="@+id/gv"
+
+
+            android:layout_width="320dp"
+            android:layout_height="320dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="35dp"
+            android:columnWidth="50dp"
+            android:elevation="30dp"
+            android:gravity="center_vertical|center_horizontal|center"
+            android:horizontalSpacing="-10dp"
+            android:numColumns="8"
+            android:padding="0dp"
+            android:stretchMode="none"
+            android:verticalSpacing="-4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView3"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="49dp"
+            android:text="Currently Placing:"
+            android:textColor="@android:color/background_light"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="13dp"
+            android:layout_toEndOf="@+id/textView2"
+            android:textColor="@android:color/background_light"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="121dp"
+            android:layout_height="121dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/rg"
+            android:layout_marginStart="35dp">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_launcher" />
+        </RelativeLayout>
+
+        <RadioGroup
+            android:id="@+id/rg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="18dp">
+
+            <RadioButton
+                android:id="@+id/radioButton"
+                style="@android:style/Widget.DeviceDefault.CompoundButton.RadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:checked="true"
+                android:text="Horizontal"
+                android:textColor="@android:color/black" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:text="Vertical"
+                android:textColor="@android:color/black" />
+
+        </RadioGroup>
+    </RelativeLayout>
+
+
+</LinearLayout>
